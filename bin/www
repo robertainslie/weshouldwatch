@@ -7,6 +7,12 @@
 var app = require('../app');
 var debug = require('debug')('wsw:server');
 var http = require('http');
+const mongodb = require('mongodb');
+var ObjectID = mongodb.ObjectID;
+
+/*MongoDB Setup */
+let uri = process.env.MONGODB_URI;
+var db;
 
 /**
  * Get port from environment and store in Express.
@@ -25,9 +31,68 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+ let seedData = {
+    "movieId": 2,
+    "title": "Star Wars: Episode IV - A New Hope",
+    "createdDate": 1519966800000,
+    "createdBy": "Robert Ainslie",
+    "watched": false,
+    "upvotes": 1,
+    "imdbLink": "http://www.imdb.com/title/tt0076759/",
+    "global": true,
+    "globallyWatched": false
+}
+
+mongodb.MongoClient.connect(uri, function(err, database) {
+
+  if(err){
+    console.log(err);
+    process.exit(1);
+  }
+
+  /*
+   * Get the database from the client. Nothing is required to create a
+   * new database, it is created automatically when we insert.
+   */
+
+ db = database
+ console.log("Database connection ready");
+
+  /*
+   * First we'll add a few songs. Nothing is required to create the
+   * songs collection; it is created automatically when we insert.
+   */
+
+  let movies = db.collection('movies');
+
+   // Note that the insert method can take either an array or a dict.
+
+  movies.insert(seedData, function(err, result) {
+
+    if(err) throw err;
+
+        /*
+         * Finally we run a query which returns all the hits that spend 10 or
+         * more weeks at number 1.
+         */
+
+          /*docs.forEach(function (doc) {
+            console.log(
+              'In the ' + doc['decade'] + ', ' + doc['song'] + ' by ' + doc['artist'] +
+              ' topped the charts for ' + doc['weeksAtOne'] + ' straight weeks.'
+            );
+          });*/
+
+          // Since this is an example, we'll clean up after ourselves.
+     console.log(result);    
+  });
+   /*database.close(function (err) {
+              if(err) throw err;
+            });*/
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+});
 
 /**
  * Normalize a port into a number, string, or false.
