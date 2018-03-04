@@ -61,8 +61,8 @@ let seedData = {
     "globallyWatched": false
 }
 
-mongodb.MongoClient.connect(uri, function(err, db) {
-
+mongodb.MongoClient.connect(uri, function(err, database) {
+const dbName = database.db('heroku_vpfkjpw3')
   if(err){
     console.log(err);
     process.exit(1);
@@ -73,10 +73,10 @@ mongodb.MongoClient.connect(uri, function(err, db) {
    * new database, it is created automatically when we insert.
    */
 
- db = db;
+ /*database = db;*/
  console.log("Database connection ready");
 
-  var movies = db.collection('movies');
+  var movies = dbName.collection('movies');
   console.log(movies);
 
    // Note that the insert method can take either an array or a dict.
