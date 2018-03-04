@@ -68,10 +68,11 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	}
 	console.log("Database connection ready");
 	const movies = dbName.collection('movies');
+	db = movies;
 
 });
 
-movies.insert(seedData, function(err, result) {
+db.insert(seedData, function(err, result) {
 
     if(err) throw err;
 });
