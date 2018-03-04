@@ -11,7 +11,8 @@ const mongodb = require('mongodb');
 var ObjectID = mongodb.ObjectID;
 
 /*MongoDB Setup */
-let uri = process.env.MONGODB_URI;
+/*let uri = process.env.MONGODB_URI;*/
+let uri = 'mongodb://heroku_vpfkjpw3:egeflukeggtbugqe6gjk1p6vns@ds153958.mlab.com:53958/heroku_vpfkjpw3'
 var db;
 
 /**
