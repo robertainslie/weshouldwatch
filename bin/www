@@ -64,7 +64,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
    * songs collection; it is created automatically when we insert.
    */
 
-  let movies = db.collection('movies');
+  let movies = db.db('movies');
 
    // Note that the insert method can take either an array or a dict.
 
