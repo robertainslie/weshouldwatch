@@ -50,60 +50,30 @@ app.use(function(err, req, res, next) {
 });
 
 let seedData = {
-    "movieId": 2,
-    "title": "Star Wars: Episode IV - A New Hope",
+    "movieId": 3,
+    "title": "Star Wars: Episode V - Empire Strikes Back",
     "createdDate": 1519966800000,
     "createdBy": "Robert Ainslie",
     "watched": false,
     "upvotes": 1,
-    "imdbLink": "http://www.imdb.com/title/tt0076759/",
+    "imdbLink": "http://www.imdb.com/title/tt0080684",
     "global": true,
     "globallyWatched": false
 }
-
 mongodb.MongoClient.connect(uri, function(err, database) {
-const dbName = database.db('heroku_vpfkjpw3')
-  if(err){
-    console.log(err);
-    process.exit(1);
-  }
+	const dbName = database.db('heroku_vpfkjpw3')
+	if(err){
+		console.log(err);
+		process.exit(1);
+	}
+	console.log("Database connection ready");
+	const movies = dbName.collection('movies');
 
-  /*
-   * Get the database from the client. Nothing is required to create a
-   * new database, it is created automatically when we insert.
-   */
+});
 
- /*database = db;*/
- console.log("Database connection ready");
-
-  var movies = dbName.collection('movies');
-  console.log(movies);
-
-   // Note that the insert method can take either an array or a dict.
-
-  movies.insert(seedData, function(err, result) {
+movies.insert(seedData, function(err, result) {
 
     if(err) throw err;
-
-        /*
-         * Finally we run a query which returns all the hits that spend 10 or
-         * more weeks at number 1.
-         */
-
-          /*docs.forEach(function (doc) {
-            console.log(
-              'In the ' + doc['decade'] + ', ' + doc['song'] + ' by ' + doc['artist'] +
-              ' topped the charts for ' + doc['weeksAtOne'] + ' straight weeks.'
-            );
-          });*/
-
-          // Since this is an example, we'll clean up after ourselves.
-     console.log(result);    
-  });
-   /*database.close(function (err) {
-              if(err) throw err;
-            });*/
-
 });
 
 module.exports = app;
