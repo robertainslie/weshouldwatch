@@ -96,7 +96,6 @@ router.post('/weshouldwatch', function(req, res, next) {
 			}
 		res.status(200).send(response);
 	}
-	}
 });
 
 module.exports = router;
