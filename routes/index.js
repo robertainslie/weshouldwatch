@@ -58,7 +58,7 @@ router.post('/weshouldwatch', function(req, res, next) {
 	var slashCommand = parseCommand(req.body.text);
 
 	/* Add movie to db*/
-	if(req.body.token === 'sDwAy9wjeZYeE7y8VwnEpa7I' && slashCommand.command ==='add'){
+	if(req.body.token === process.env.SLACK_SLASH_TOKEN && slashCommand.command ==='add'){
 		
 		movies.insert(addMovie(slashCommand.title,req.body.user_name,req.body.user_id),function (err,result){
 			 if(err) throw err;
@@ -73,16 +73,13 @@ router.post('/weshouldwatch', function(req, res, next) {
 			}
 		res.status(200).send(response);
 	}
-	else if (req.body.token === 'sDwAy9wjeZYeE7y8VwnEpa7I' && slashCommand.command ==='list'){
-		movies.find().toArray({},function(err,results){
-			if(err)throw err;
-			console.log(results);
-		});
+	else if (req.body.token === process.env.SLACK_SLASH_TOKEN && slashCommand.command ==='list'){
+		console.log(movies.find().toArray());
 		var response = {
 		    "text": "Here are movies we should watch. Great Job!",
 		    "attachments": [
 		        {
-		            "text":`<ul><li>Movie1</li></ul>`
+		            "text":'List'
 		        }
 		    ]
 		}
