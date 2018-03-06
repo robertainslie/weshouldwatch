@@ -16,7 +16,7 @@ router.get('/weshouldwatch', function(req, res, next) {
 
     if(err) throw err;
 	});
-  res.status(200);
+  res.status(200).send('<p>Received</p>');
 });
 
 

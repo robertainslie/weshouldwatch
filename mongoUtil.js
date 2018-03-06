@@ -2,6 +2,7 @@ var MongoClient = require( 'mongodb' ).MongoClient;
 
 var _db;
 let uri = process.env.MONGODB_URI;
+console.log(uri);
 
 module.exports = {
 
