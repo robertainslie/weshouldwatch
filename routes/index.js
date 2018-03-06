@@ -72,7 +72,20 @@ router.post('/weshouldwatch', function(req, res, next) {
 		    ]
 			}
 		res.status(200).send(response);
-		}
+	}
+	else if (req.body.token === 'sDwAy9wjeZYeE7y8VwnEpa7I' && slashCommand.command ==='list'){
+		console.log(movies.find());
+		var response = {
+		    "text": "Here are movies we should watch. Great Job!",
+		    "attachments": [
+		        {
+		            "text":`<ul><li>Movie1</li></ul>`
+		        }
+		    ]
+			}
+		res.status(200).send(response);
+	}
+
 	
   res.status(200).send(response);
 });
