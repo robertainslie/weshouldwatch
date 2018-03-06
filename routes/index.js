@@ -57,7 +57,7 @@ router.post('/weshouldwatch', function(req, res, next) {
 	var slashCommand = parseCommand(req.body.text);
 
 	/* Add movie to db*/
-	if(req.token === 'sDwAy9wjeZYeE7y8VwnEpa7I' && slashCommand.command ==='add'){
+	if(req.body.token === 'sDwAy9wjeZYeE7y8VwnEpa7I' && slashCommand.command ==='add'){
 		
 		movies.insert(addMovie(slashCommand.title,req.body.user_name,req.body.user_id),function (err,result){
 			 if(err) throw err;
