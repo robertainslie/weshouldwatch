@@ -19,5 +19,24 @@ router.get('/weshouldwatch', function(req, res, next) {
   res.status(200).send('<p>Received</p>');
 });
 
+router.post('/weshouldwatch', function(req, res, next) {
+
+	var movies = db.collection('movies');
+
+	movies.insert(req.body, function(err, result) {
+
+    if(err) throw err;
+	});
+	var response = {
+    "text": "We _should_ watch that. Great job!",
+    "attachments": [
+        {
+            "text":"You added a movie!"
+        }
+    ]
+}
+  res.status(200).send(response);
+});
+
 
 module.exports = router;
