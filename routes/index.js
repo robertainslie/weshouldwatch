@@ -2,6 +2,39 @@ var express = require('express');
 var router = express.Router();
 var mongoUtil = require('../mongoUtil');
 var db = mongoUtil.getDb();
+var movies = db.collection('movies');
+
+function addMovie (title,createdByName,createdByUser) {
+	var addMovie = {
+    "movieId": 3,
+    "title": undefined,
+    "createdDate": Date.now(),
+    "createdBy": "Robert Ainslie",
+    "watched": false,
+    "upvotes": 1,
+    /*"imdbLink": "http://www.imdb.com/title/tt0080684",*/
+    "global": true,
+    "globallyWatched": false
+	};
+	return addMovie
+}
+
+function parseCommand (commandText) {
+	var commandText = commandText.split(" ");
+	var movieTitle = {'command':'none','title':'none'};
+	if (commandText[0]===""){
+		movieTitle.command='list';
+	}
+	else if (commandText[0]=== 'watched'){
+		movieTitle.command = 'watched';
+		movieTitle.title = commandText.slice(1).join(" ");
+	}
+	else {
+		movieTitle.command ='add';
+		movieTitle.title = commandText.join(" ");
+	}
+	return movieTitle
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,21 +53,26 @@ router.get('/weshouldwatch', function(req, res, next) {
 });
 
 router.post('/weshouldwatch', function(req, res, next) {
+	/*parse req.body */
+	var slashCommand = parseCommand(req.body.text);
 
-	var movies = db.collection('movies');
-
-	movies.insert(req.body, function(err, result) {
-
-    if(err) throw err;
-	});
-	var response = {
-    "text": "We _should_ watch that. Great job!",
-    "attachments": [
-        {
-            "text":"You added a movie!"
-        }
-    ]
-}
+	/* Add movie to db*/
+	if(req.token === 'sDwAy9wjeZYeE7y8VwnEpa7I' && slashCommand.command ==='add'){
+		
+		movies.insert(addMovie(slashCommand.title,req.body.user_name,req.body.user_id),function (err,result){
+			 if(err) throw err;
+		})
+		var response = {
+		    "text": "You added a movie to watch. Great Job!",
+		    "attachments": [
+		        {
+		            "text":`We _should_ watch ${slashCommand.title}. Great job!`
+		        }
+		    ]
+			}
+		res.status(200).send(response);
+		}
+	
   res.status(200).send(response);
 });
 
