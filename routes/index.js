@@ -7,9 +7,10 @@ var movies = db.collection('movies');
 function addMovie (title,createdByName,createdByUser) {
 	var addMovie = {
     "movieId": 3,
-    "title": undefined,
+    "title": title,
     "createdDate": Date.now(),
-    "createdBy": "Robert Ainslie",
+    "createdByName": createdByName,
+    "createdByUser": createdByUser,
     "watched": false,
     "upvotes": 1,
     /*"imdbLink": "http://www.imdb.com/title/tt0080684",*/
@@ -66,7 +67,7 @@ router.post('/weshouldwatch', function(req, res, next) {
 		    "text": "You added a movie to watch. Great Job!",
 		    "attachments": [
 		        {
-		            "text":`We _should_ watch ${slashCommand.title}. Great job!`
+		            "text":`We _should_ watch ${slashCommand.title}.`
 		        }
 		    ]
 			}
