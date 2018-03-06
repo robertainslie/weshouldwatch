@@ -23,7 +23,7 @@ function addMovie (title,createdByName,createdByUser) {
 function parseCommand (commandText) {
 	var commandText = commandText.split(" ");
 	var movieTitle = {'command':'none','title':'none'};
-	if (commandText[0]===""){
+	if (commandText[0]==="" || commandText[0]==" "){
 		movieTitle.command='list';
 	}
 	else if (commandText[0]=== 'watched'){
@@ -82,12 +82,21 @@ router.post('/weshouldwatch', function(req, res, next) {
 		            "text":`<ul><li>Movie1</li></ul>`
 		        }
 		    ]
+		}
+		res.status(200).send(response);
+
+	else {
+		var response = {
+		    "text": "Houston, we have a problem. Great Job!",
+		    "attachments": [
+		        {
+		            "text":`Not sure we got that. There was probably an error. Hopefully Tom Hanks gets back from the moon.`
+		        }
+		    ]
 			}
 		res.status(200).send(response);
 	}
-
-	
-  res.status(200).send(response);
+	}
 });
 
 
