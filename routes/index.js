@@ -37,6 +37,15 @@ function parseCommand (commandText) {
 	return movieTitle
 }
 
+function generateTextfromTitles (moviesArray){
+	var responseText = '';
+	moviesArray.forEach(function (movie) {
+		var newLine = `We should watch ${movie.title}. ${movie.createdByUser} wants to anyway.\n`;
+		responseText+=newLine;
+	})
+	return responseText
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -74,20 +83,20 @@ router.post('/weshouldwatch', function(req, res, next) {
 		res.status(200).send(response);
 	}
 	else if (req.body.token === process.env.SLACK_SLASH_TOKEN && slashCommand.command ==='list'){
-		/*movies.find().toArray()
+		movies.find().toArray()
 		.then(function(result){
-			var titles = []
-			result.forEach
-		});*/
-		var response = {
+			var response = {
 		    "text": "Here are movies we should watch. Great Job!",
 		    "attachments": [
 		        {
-		            "text":'List •new line? •another new line?\n and another!'
+		            "text":generateTextfromTitles(result);
 		        }
-		    ]
-		}
-		res.status(200).send(response);
+		        ]
+		    }
+		    res.status(200).send(response);
+		});
+		
+		
 	}
 	else {
 		var response = {
