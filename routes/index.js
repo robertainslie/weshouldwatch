@@ -38,9 +38,9 @@ function parseCommand (commandText) {
 }
 
 function generateTextfromTitles (moviesArray){
-	var responseText = '';
+	var responseText = 'We should watch:\n';
 	moviesArray.forEach(function (movie) {
-		var newLine = `We should watch ${movie.title}. ${movie.createdByName} wants to anyway.\n`;
+		var newLine = `*${movie.title}* - _${movie.createdByName}_ wants to anyway.\n`;
 		responseText+=newLine;
 	})
 	return responseText
