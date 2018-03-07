@@ -40,7 +40,7 @@ function parseCommand (commandText) {
 function generateTextfromTitles (moviesArray){
 	var responseText = '';
 	moviesArray.forEach(function (movie) {
-		var newLine = `We should watch ${movie.title}. ${movie.createdByUser} wants to anyway.\n`;
+		var newLine = `We should watch ${movie.title}. ${movie.createdByName} wants to anyway.\n`;
 		responseText+=newLine;
 	})
 	return responseText
