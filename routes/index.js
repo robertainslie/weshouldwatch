@@ -83,7 +83,7 @@ router.post('/weshouldwatch', function(req, res, next) {
 		    "text": "Here are movies we should watch. Great Job!",
 		    "attachments": [
 		        {
-		            "text":'List /n new line? /n another new line?'
+		            "text":'List \\n new line? \\n another new line?'
 		        }
 		    ]
 		}
