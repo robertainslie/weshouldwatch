@@ -11,6 +11,10 @@ mongoUtil.connectToServer( function( err ) {
   var debug = require('debug')('wsw:server');
   var http = require('http');
 
+  setInterval(function() {
+    http.get("https://weshouldwatch.herokuapp.com");
+}, 300000);
+
   var port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
   var server = http.createServer(app);
