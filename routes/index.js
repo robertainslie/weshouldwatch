@@ -74,7 +74,7 @@ router.post('/weshouldwatch', function(req, res, next) {
 		res.status(200).send(response);
 	}
 	else if (req.body.token === process.env.SLACK_SLASH_TOKEN && slashCommand.command ==='list'){
-		console.log(movies.find().toArray());
+		movies.find().toArray().then(function(result){console.log(result)});
 		var response = {
 		    "text": "Here are movies we should watch. Great Job!",
 		    "attachments": [
