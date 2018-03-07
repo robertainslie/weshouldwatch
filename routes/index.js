@@ -89,7 +89,7 @@ router.post('/weshouldwatch', function(req, res, next) {
 		    "text": "Here are movies we should watch. Great Job!",
 		    "attachments": [
 		        {
-		            "text":generateTextfromTitles(result);
+		            "text":generateTextfromTitles(result)
 		        }
 		        ]
 		    }
