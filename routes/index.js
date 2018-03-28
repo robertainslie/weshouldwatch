@@ -40,7 +40,7 @@ function parseCommand (commandText) {
 function generateTextfromTitles (moviesArray){
 	var responseText = 'We should watch:\n';
 	moviesArray.forEach(function (movie) {
-		var newLine = `*${movie.title}* - _${movie.createdByName}_ wants to anyway.\n`;
+		var newLine = `*${movie.title}* - _${movie.createdByName}_ has excellent recommendations.\n`;
 		responseText+=newLine;
 	})
 	return responseText
@@ -48,18 +48,21 @@ function generateTextfromTitles (moviesArray){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.status(200).send('<p>Great Job!</p>');
+});
+
+router.all('/webhooks', function(req, res, next) {
+	console.log(req.body)
+  res.status(200).send('<p>Great Job!</p>');
 });
 
 router.get('/weshouldwatch', function(req, res, next) {
 
 	var movies = db.collection('movies');
-
 	movies.insert(req.body, function(err, result) {
-
-    if(err) throw err;
+		if(err) throw err;
 	});
-  res.status(200).send('<p>Received</p>');
+  res.status(200).send('<p>Great Job!</p>');
 });
 
 router.post('/weshouldwatch', function(req, res, next) {
