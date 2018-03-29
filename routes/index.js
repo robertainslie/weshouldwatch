@@ -52,6 +52,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.all('/webhooks', function(req, res, next) {
+	console.log('Incoming webhook from HubSpot');
 	console.log(req.body)
   res.status(200).send('<p>Great Job!</p>');
 });
